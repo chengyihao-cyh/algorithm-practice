@@ -1,0 +1,19 @@
+package org.rereview2024summer.tree;
+
+public class T29_sortedArrayToBST {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return build(nums, 0, nums.length);
+    }
+    public TreeNode build(int[] nums, int left, int right) {
+        int len = right - left;
+        if (len == 0)
+            return null;
+        if (len == 1)
+            return new TreeNode(nums[left]);
+        int mid = left + (right - left) / 2;
+        TreeNode node = new TreeNode(nums[mid]);
+        node.left = build(nums, left, mid);
+        node.right = build(nums, mid + 1, right);
+        return node;
+    }
+}
