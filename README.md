@@ -9,7 +9,8 @@ Java 与 Python 的 LeetCode 刷题仓库，保留代码随想录的教程顺序
 - `templates/java/`：Java 练习骨架，分为代码随想录与 Hot 100。
 - `templates/python/`：Python 练习骨架，分为代码随想录与 Hot 100。
 - `archive/`：按每轮开始日期保存历史作答，不区分语言顶层目录。
-- `notes/`：Python 转换笔记和保留下来的零散记录。
+- `notes/`：Java 转 Python 速查、算法模式和刷题复盘，入口见
+  [`notes/README.md`](notes/README.md)。
 
 ## 命名
 

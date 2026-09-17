@@ -12,3 +12,6 @@ target/
 out/
 *.iml
 *.class
+
+# Local throwaway Python experiments
+/playground/
