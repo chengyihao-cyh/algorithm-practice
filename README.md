@@ -4,8 +4,8 @@ Java 与 Python 的 LeetCode 刷题仓库，保留代码随想录的教程顺序
 
 ## 目录
 
-- `solutions/code-carl/`：代码随想录当前答案，按 `chXX/tN` 教程顺序组织。
-- `solutions/hot-100/`：现有 Java Hot 100 答案。
+- `solutions/java/`：现有 Java 答案，分为代码随想录与 Hot 100。
+- `solutions/python/`：现有 Python 答案；尚未完成的题单只保留说明，不放空模板。
 - `templates/java/`：Java 练习骨架，分为代码随想录与 Hot 100。
 - `templates/python/`：Python 练习骨架，分为代码随想录与 Hot 100。
 - `archive/`：按每轮开始日期保存历史作答，不区分语言顶层目录。
