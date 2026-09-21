@@ -246,6 +246,15 @@ heapq.heappush(heap, (priority, next(sequence), item))
 | 需要访问相邻下标 | `for i in range(1, len(values))` |
 | 边界会在循环体内变化 | `while` |
 
+`range(start, stop, step)` 遵循左闭右开 `[start, stop)`：`start` 是起点（默认 `0`），
+`stop` 是不包含的终点，`step` 是每次变化量（默认 `1`，反向遍历时为负数）。
+
+```python
+range(n)               # 0, 1, ..., n - 1
+range(0, n, 2)         # 0, 2, 4, ...
+range(n - 1, -1, -1)  # n - 1, n - 2, ..., 0
+```
+
 `range(...)` 在进入循环前就确定范围。若右边界会在循环中扩张，例如跳跃游戏中的
 `cover`，应使用 `while i <= cover`。
 
