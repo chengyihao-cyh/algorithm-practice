@@ -11,12 +11,22 @@
 | 取模 | `5 % 2` | `5 % 2` |
 | 空值 | `None` | `null` |
 | 逻辑运算 | `and`、`or`、`not` | `&&`、`||`、`!` |
-| 极值哨兵 | `float("inf")`、`float("-inf")` | `Integer.MAX_VALUE` 等 |
+| 整数哨兵 | `sys.maxsize`、`-sys.maxsize - 1` | `Integer.MAX_VALUE` 等 |
 | 交换 | `a, b = b, a` | 临时变量 |
 | 命名 | `snake_case` | 常见为 `camelCase` |
 
-Python 的整数没有 Java `int`/`long` 那样的固定范围。只需要一个“大于所有候选值”
-的哨兵时，`float("inf")` 通常比 `sys.maxsize` 更能表达意图。
+Python 的 `int` 没有固定上限。只比较、不参与运算的极值哨兵可约定使用
+`sys.maxsize`；需要参与加法时可使用 `0x3F3F3F3F`，前提是它大于题目中的最大可能值：
+
+```python
+import sys
+
+MAX_SENTINEL = sys.maxsize       # 极值哨兵，约定不参与加法
+MIN_SENTINEL = -sys.maxsize - 1
+INF = 0x3F3F3F3F                 # 可加的较大整数哨兵
+```
+
+`sys.maxsize` 是平台的最大索引值，不是 Python 整数上限，技术上仍然可以继续相加。
 
 ### 相等、身份与真假值
 
