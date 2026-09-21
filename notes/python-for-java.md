@@ -80,13 +80,16 @@ ord("c") - ord("a")     # 2，字母映射到下标
 
 ```python
 nums = [1, 2, 3]
-zeros = [0] * 5
+counts = [0] * 26  # 类似 Java 的 new int[26]
 doubled = [x * 2 for x in range(5)]
 
 nums.append(4)
 last = nums.pop()
 copy_of_nums = nums.copy()  # 浅拷贝
 ```
+
+Python 算法题通常用 `list` 兼任 Java 数组和 `ArrayList`；`[0] * 26` 会预先创建
+26 个位置，但 `list` 仍可用 `append()` 改变长度。
 
 创建二维列表时，每一行必须是独立对象：
 
@@ -138,6 +141,15 @@ freq.most_common(2)        # [("a", 5), ("b", 2)]
 Counter("abc") <= Counter("abcabc")  # 每个字符的数量是否都不超过右侧
 ```
 
+`defaultdict(list)` 把 `list` 作为默认工厂；访问缺失键时会调用 `list()` 创建并保存
+一个新的空列表。因此 `groups["odd"].append(1)` 近似等价于：
+
+```python
+if "odd" not in groups:
+    groups["odd"] = []
+groups["odd"].append(1)
+```
+
 遍历字典时按所需内容选择：
 
 ```python
@@ -166,7 +178,10 @@ a ^ b  # 对称差集 {1, 4}
 a <= b # a 是否为 b 的子集
 
 a.discard(99)  # 元素不存在也不报错
+a.remove(99)   # 元素不存在时抛出 KeyError
 ```
+
+`discard()` 和 `remove()` 都会删除指定元素；不确定元素是否存在时使用 `discard()`。
 
 ## 栈、队列与堆
 
@@ -188,8 +203,9 @@ queue.append(4)
 front = queue.popleft()
 ```
 
-`heapq` 默认是小顶堆。为兼容常见的 LeetCode Python 运行环境，可用相反数模拟数值
-大顶堆：
+`heapq` 不创建专用容器，而是原地把普通 `list` 维护成小顶堆：只保证父节点不大于
+子节点，列表整体不一定有序。为兼容常见的 LeetCode Python 运行环境，可用相反数
+模拟数值大顶堆：
 
 ```python
 import heapq
@@ -197,13 +213,18 @@ import heapq
 min_heap: list[int] = []
 heapq.heappush(min_heap, 3)
 heapq.heappush(min_heap, 1)
-smallest = heapq.heappop(min_heap)  # 1
+smallest = min_heap[0]              # peek：读取堆顶但不删除，O(1)
+smallest = heapq.heappop(min_heap)  # pop：读取并删除堆顶，O(log n)
 
 max_heap: list[int] = []
 heapq.heappush(max_heap, -3)
 heapq.heappush(max_heap, -1)
+largest = -max_heap[0]              # peek：3
 largest = -heapq.heappop(max_heap)  # 3
 ```
+
+除读取 `heap[0]` 外，不要直接修改底层列表，否则可能破坏堆序；已有列表可用
+`heapq.heapify(values)` 原地建堆。
 
 自定义对象不要直接入堆，优先包装成“排序键 + 唯一序号 + 对象”。唯一序号可以避免
 排序键相同时继续比较不可比较的对象：
