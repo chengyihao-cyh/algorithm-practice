@@ -48,6 +48,29 @@ if target in index_by_value:
     ...
 ```
 
+## 数字与类型转换
+
+调用目标类型名完成转换，类似 Java 的 `parseXxx()` 或强制类型转换：
+
+```python
+int("123")       # 123
+float("3.14")    # 3.14
+str(123)         # "123"
+float(3)         # 3.0
+int(3.9)         # 3，向 0 截断
+int("1010", 2)  # 10，按二进制解析
+```
+
+转换格式不合法会抛出 `ValueError`，例如 `int("3.14")`；字符串和数字不会自动互转。
+
+单个字符与 Unicode 码点互转：
+
+```python
+ord("A")              # 65
+chr(65)               # "A"
+ord("c") - ord("a")  # 2，字母映射到下标
+```
+
 ## 字符串与切片
 
 字符串不可变，但支持下标和切片：
@@ -76,14 +99,11 @@ result = "".join(chars)  # "xbc"
 "  a   b  ".split(" ")  # ["", "", "a", "", "", "b", "", ""]
 ```
 
-字符和数字互转：
+`str.isdigit()` 判断字符串是否非空且全部由数字字符组成：
 
 ```python
-ord("A")                 # 65
-chr(65)                  # "A"
-int("3")                 # 3
-str(3)                   # "3"
-ord("c") - ord("a")     # 2，字母映射到下标
+"123".isdigit()   # True
+"-123".isdigit()  # False，负号不是数字字符
 ```
 
 ## List
@@ -200,7 +220,8 @@ a.remove(99)   # 元素不存在时抛出 KeyError
 ```python
 stack: list[int] = []
 stack.append(1)
-top = stack.pop()
+top = stack[-1]   # peek：读取栈顶但不删除
+top = stack.pop()  # pop：读取并删除栈顶
 ```
 
 队列使用 `deque`，不要使用复杂度为 O(n) 的 `list.pop(0)`：
@@ -210,7 +231,9 @@ from collections import deque
 
 queue = deque([1, 2, 3])
 queue.append(4)
-front = queue.popleft()
+front = queue[0]         # peek：读取队首但不删除
+back = queue[-1]         # 读取队尾但不删除
+front = queue.popleft()  # 读取并删除队首
 ```
 
 `heapq` 不创建专用容器，而是原地把普通 `list` 维护成小顶堆：只保证父节点不大于
